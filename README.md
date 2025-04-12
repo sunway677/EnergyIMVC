@@ -1,4 +1,4 @@
-# Energy-Enhanced Multi-View Clustering with Missing Data
+# Energy-Based Deep Incomplete Multi-View Clustering
 
 ## Introduction
 
