@@ -11,21 +11,21 @@ from torch.utils.data import Dataset
 class MultiviewData(Dataset):
     def __init__(self, db, device, path="datasets/"):
         self.data_views = list()
-        self.device = device  # 存储device
+        self.device = device  # Store device
 
-        # 解析数据集名称，提取基础名称和缺失率
+        # Parse dataset name, extract base name and missing rate
         if '_missing_' in db:
             parts = db.split('_missing_')
             base_db = parts[0]
             missing_ratio = parts[1]
             filename = f'{base_db}_missing_{missing_ratio}.mat'
         else:
-            # 默认使用0.1的缺失率
+            # Default to using 0.1 missing rate
             base_db = db
             missing_ratio = '0.1'
             filename = f'{base_db}_missing_0.1.mat'
 
-        # 记录用于日志和调试
+        # Record for logging and debugging
         print(f"Loading dataset: {filename}")
 
         if base_db == "MSRCv1":
@@ -74,7 +74,7 @@ class MultiviewData(Dataset):
             self.missing_matrix = torch.tensor(mat['missing_matrix'], dtype=torch.float32).to(self.device)
 
         elif base_db == "hand":
-            # 修正handwritten数据集文件名
+            # Fix handwritten dataset filename
             filename = filename.replace('hand_missing', 'handwritten_missing')
             mat = sio.loadmat(os.path.join(path, filename))
             X_data = mat['X']
@@ -88,7 +88,7 @@ class MultiviewData(Dataset):
             self.missing_matrix = torch.tensor(mat['missing_matrix'], dtype=torch.float32).to(self.device)
 
         elif base_db == "scene":
-            # 修正Scene15数据集文件名
+            # Fix Scene15 dataset filename
             filename = filename.replace('scene_missing', 'Scene15_missing')
             mat = sio.loadmat(os.path.join(path, filename))
             X_data = mat['X']
@@ -102,7 +102,7 @@ class MultiviewData(Dataset):
             self.missing_matrix = torch.tensor(mat['missing_matrix'], dtype=torch.float32).to(self.device)
 
         elif base_db == "mfeat":
-            # 修正mfeat数据集文件名，注意这里没有.mat扩展名
+            # Fix mfeat dataset filename, note that there's no .mat extension here
             filename = filename.replace('.mat', '')
             mat = sio.loadmat(os.path.join(path, filename))
             X_data = mat['X']
@@ -140,6 +140,19 @@ class MultiviewData(Dataset):
 
 
 def get_multiview_data(mv_data, batch_size):
+    """
+    Create a data loader for multi-view data
+    
+    Args:
+        mv_data: MultiviewData instance
+        batch_size: Batch size for the data loader
+        
+    Returns:
+        mv_data_loader: PyTorch DataLoader for the multi-view data
+        num_views: Number of views in the dataset
+        num_samples: Total number of samples
+        num_clusters: Number of unique clusters/classes
+    """
     num_views = len(mv_data.data_views)
     num_samples = len(mv_data.labels)
     num_clusters = len(np.unique(mv_data.labels))
