@@ -12,10 +12,6 @@ This repository implements an energy-based multi-view clustering framework that 
 - **Missing Data Handling**: Robust performance even with significant missing data rates
 - **Support for Multiple Datasets**: Works with standard multi-view clustering benchmark datasets
 
-## Installation
-
-### Requirements
-
 
 ### Usage
 python main.py --dataset=hand --num_heads=4 --learning_rate=0.0017593568650436865 \
@@ -29,24 +25,3 @@ python main.py --dataset=hand --num_heads=4 --learning_rate=0.001759356865043686
 python main.py --dataset=hand --load_checkpoint
 
 
-### Directory Structure
-.
-├── checkpoints/           # Model checkpoints
-├── datasets/              # Dataset files
-├── models/                # Model implementations
-│   ├── __init__.py
-│   ├── clustering.py      # MultiViewClusteringModel
-│   └── networks.py        # Network components
-├── losses/                # Loss function implementations
-│   ├── __init__.py
-│   ├── contrastive.py     # Contrastive loss
-│   └── energy.py          # Energy-based losses
-├── utils/                 # Utility functions
-│   ├── __init__.py
-│   ├── metrics.py         # Evaluation metrics
-│   └── training.py        # Training functions
-├── dataprocessing.py      # Data loading and processing
-├── hyperparameter_tuning.py # Hyperparameter optimization
-├── main.py                # Main training script
-├── README.md              # This file
-└── requirements.txt       # Required dependencies
