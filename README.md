@@ -12,6 +12,7 @@ This repository implements an energy-based multi-view clustering framework that 
 - **Missing Data Handling**: Robust performance even with significant missing data rates
 - **Support for Multiple Datasets**: Works with standard multi-view clustering benchmark datasets
 
+![framework](./framework.png)
 
 ### Usage
 python main.py --dataset=hand --num_heads=4 --learning_rate=0.0017593568650436865 \
